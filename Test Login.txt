@@ -3,9 +3,9 @@ username : admin
 password : admin
 
 Role Gudang
-username : hiroto
-password : hiroto
+username : gudang
+password : gudang
 
 Role Staff
-username : Kidou
-password : kidou
+username : staff
+password : staff
