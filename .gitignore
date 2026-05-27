@@ -1,0 +1,13 @@
+.DS_Store
+/build/
+/dist/
+/nbproject/private/
+.env
+*.class
+
+# Konfigurasi lokal (password) — gunakan file .example
+resources/config.properties
+src/com/inventory/config/config.properties
+
+# Artefak generator SQL
+db/_seed_data_bookstore.sql

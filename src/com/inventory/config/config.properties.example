@@ -1,0 +1,11 @@
+app.name = Inventory Management
+app.version = v1.0.0
+app.description = Aplikasi Manajemen Gudang & Persediaan Barang
+app.perusahaan = PT. EUREKA BOOKHOUSE
+app.detail = Aplikasi Manajemen Gudang & Persediaan Barang adalah sistem yang dirancang untuk membantu pengelolaan stok barang secara terstruktur, akurat, dan terkontrol.<br><br>Aplikasi ini memisahkan dengan jelas antara data master dan transaksi, sehingga setiap pergerakan barang dapat tercatat dengan baik dan mudah diaudit.\n\nStok barang tidak diinput secara manual, melainkan dihitung otomatis berdasarkan transaksi barang masuk dan barang keluar.
+
+db.host=localhost
+db.port=3306
+db.name=inventory_management
+db.user=root
+db.password=GANTI_PASSWORD_ANDA

@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LaporanStokOpname" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f08647f2-95ae-404d-9ae8-9e04929e936a">
+	<property name="ireport.zoom" value="1.464100000000029"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.one.page.per.sheet" value="false"/>
+	<style name="style_row">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#F5F5F5"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="StokOpnameDetail" uuid="55523f0f-d712-45b5-b233-a4cf65455939">
+		<parameter name="opnameID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT st.stok_id, b.barang_name, det.stok_sistem, det.stok_fisik, det.selisih, det.catatan
+				FROM stok_opname_detail det
+				INNER JOIN stok_opname so ON so.opname_id = det.opname_id
+				INNER JOIN barang b ON b.barang_id = det.barang_id
+				INNER JOIN stok_gudang st ON st.stok_id = det.stok_id
+				WHERE so.opname_id = $P{opnameID} AND st.jumlah > 0 AND st.harga_beli > 0 AND b.harga_jual > 0 AND b.stok_minimum > 0
+				GROUP BY st.stok_id, b.barang_name]]>
+		</queryString>
+		<field name="stok_id" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="barang_name" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="stok_sistem" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="stok_fisik" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="selisih" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="catatan" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="REPORT_FORMAT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="role" class="java.lang.String"/>
+	<parameter name="startDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO_IMAGE" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[SELECT so.opname_id, so.tanggal_opname, so.keterangan, so.status
+			from stok_opname so
+			inner join stok_opname_detail det on so.opname_id = det.opname_id
+			inner join barang b on b.barang_id = det.barang_id
+			inner join stok_gudang st on st.stok_id = det.stok_id
+			inner join satuan s on s.satuan_id = b.satuan_id
+			inner join rak r on r.rak_id = st.rak_id
+			inner join gudang g on g.gudang_id = st.gudang_id
+			WHERE so.tanggal_opname BETWEEN $P{startDate} AND $P{endDate}
+			GROUP BY so.opname_id, so.tanggal_opname, so.keterangan, so.status, b.barang_name, s.satuan_name, r.rak_name, g.gudang_name]]]>
+	</queryString>
+	<field name="opname_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_opname" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="keterangan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="barang_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="satuan_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rak_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gudang_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="87" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($P{REPORT_FORMAT}.equals("XLSX") == false)]]></printWhenExpression>
+		<image onErrorType="Blank">
+			<reportElement x="0" y="5" width="55" height="55" uuid="e28e9983-4359-4ee0-8217-083bfcd76332"/>
+			<imageExpression><![CDATA[$P{LOGO_IMAGE}]]></imageExpression>
+		</image>
+			<staticText>
+				<reportElement x="0" y="2" width="555" height="22" uuid="8c4b3612-f88f-4ed2-93d3-356714716fa8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PT. EUREKA BOOKHOUSE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="24" width="555" height="18" uuid="94741b99-3470-4645-8bd9-5cd36d349eac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inventory Management]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="42" width="555" height="16" uuid="7cf791d8-9a9b-4d87-8a0d-cd97a26ffb74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Jl. Kalibata Tengah, Kec. Pancoran Jakarta Selatan - Indonesia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="555" height="16" uuid="6c8f919e-6080-4748-8d7d-f9ce53aa24a2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Telp. 021 87796010]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="80" width="555" height="1" uuid="010da2ff-bf86-4862-a269-c07cdb06549d"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="57" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($P{REPORT_FORMAT}.equals("XLSX") == false)]]></printWhenExpression>
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="20" uuid="47be4bcd-e272-437c-a5c6-7d67eae2f930"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Stok Opname]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="0" y="30" width="555" height="20" uuid="c0cc3c7e-3094-470d-9394-50e3c20e53cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Periode " +
+new java.text.SimpleDateFormat("d MMMM yyyy", new java.util.Locale("id")).format($P{startDate})
+ + " - " +
+new java.text.SimpleDateFormat("d MMMM yyyy", new java.util.Locale("id")).format($P{endDate})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#0C2C40" uuid="ccf1a1a7-a85b-49f1-9c59-2d20f9811cc2"/>
+				<box>
+					<pen lineColor="#08364E"/>
+					<topPen lineWidth="0.5" lineColor="#08364E"/>
+					<leftPen lineWidth="0.5" lineColor="#08364E"/>
+					<bottomPen lineWidth="0.5" lineColor="#08364E"/>
+					<rightPen lineWidth="0.5" lineColor="#08364E"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="25" height="20" forecolor="#FFFFFF" uuid="f999a6e5-74a8-48a6-8ca3-c60a14cf8455"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="25" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="f4def113-4d2d-42c7-9ec5-c12df45ed7e5"/>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tanggal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="85" y="0" width="75" height="20" forecolor="#FFFFFF" uuid="e4f9056f-4e41-484a-ad66-9ffe112ecf49"/>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Keterangan]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="214" y="0" width="100" height="20" forecolor="#FFFFFF" uuid="3acf1270-b8fd-4c6d-b14e-e7b50c381d22"/>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nama Barang]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="432" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="e543b58f-b41f-4766-a02d-db52ae294c08"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Selisih]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="314" y="0" width="58" height="20" forecolor="#FFFFFF" uuid="42fb02b7-85e7-49be-8b2a-06f95630bbbc"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Stok Sistem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="372" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="1b72ed51-6eb0-413d-9bb1-2ee9e97ca8ba"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Stok Fisik]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="160" y="0" width="54" height="20" forecolor="#FFFFFF" uuid="8054d921-201d-4446-bab2-c42e2125afdc"/>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Status]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="492" y="0" width="63" height="20" forecolor="#FFFFFF" uuid="74f42078-973b-4da6-ae91-fbb236291818"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Catatan]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<frame>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="0d94fb58-23f5-4c73-a086-729ccbb81b6f"/>
+				<box>
+					<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField textAdjust="StretchHeight">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="25" height="30" isPrintWhenDetailOverflows="true" uuid="0de3dced-c939-48a7-98cd-b3a7baa97551"/>
+					<box topPadding="5" bottomPadding="5">
+						<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="9"/>
+						<paragraph spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="25" y="0" width="60" height="30" isPrintWhenDetailOverflows="true" uuid="e66fd0a1-233d-433d-b00f-cd413b891a4e"/>
+					<box topPadding="5" bottomPadding="5">
+						<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top">
+						<font size="9"/>
+						<paragraph leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("yyyy-MM-dd", new java.util.Locale("id")).format($F{tanggal_opname})]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="85" y="0" width="75" height="30" isPrintWhenDetailOverflows="true" uuid="bc76ca91-48dc-450d-90b6-44f0a40b81d9"/>
+					<box topPadding="5" bottomPadding="5">
+						<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top">
+						<font size="9"/>
+						<paragraph leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+				</textField>
+				<componentElement>
+					<reportElement key="table" positionType="Float" stretchType="RelativeToTallestObject" x="214" y="0" width="341" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="b575ff24-a021-43f3-9f1c-9618f101c42a"/>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="StokOpnameDetail" uuid="5e5bb7ef-f98f-47f8-9094-302cab8c90e1">
+							<datasetParameter name="opnameID">
+								<datasetParameterExpression><![CDATA[$F{opname_id}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="100" uuid="09aac6f0-bd64-4c0e-aba1-5bf7691b8610">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField textAdjust="StretchHeight">
+									<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="9e920768-8e2d-4d0b-a898-26a4c2c9b4bd"/>
+									<box topPadding="5" bottomPadding="5">
+					<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0"/>
+									</box>
+									<textElement verticalAlignment="Middle">
+										<font size="9"/>
+										<paragraph leftIndent="5"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{barang_name}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="58" uuid="e7d3ed15-89d1-4122-b263-4883e19eb801">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField textAdjust="StretchHeight">
+									<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="58" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="d77c418c-711a-46ec-beec-16e7b43fd8bf"/>
+									<box topPadding="5" bottomPadding="5">
+					<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{stok_sistem}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="60" uuid="d233bf45-4eb9-4894-8044-96732f935001">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField textAdjust="StretchHeight">
+									<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="60" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="f8764b0a-9b10-48da-9f80-1960dd76083f"/>
+									<box topPadding="5" bottomPadding="5">
+					<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{stok_fisik}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="60" uuid="26295055-a5a5-40a4-8daa-af7a03c96454">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField textAdjust="StretchHeight">
+									<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="60" height="30" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="e93cfc4b-01e3-4d30-91b7-99d239d4ca69"/>
+									<box topPadding="5" bottomPadding="5">
+					<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{selisih}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="63" uuid="f0454a39-95aa-4bd7-950f-1d3c0d525210">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="63" height="30" uuid="e05c6508-62e9-43da-8bbc-f76d9c50c665"/>
+									<box topPadding="5" bottomPadding="5">
+					<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0"/>
+									</box>
+									<textElement verticalAlignment="Middle">
+										<font size="9"/>
+										<paragraph leftIndent="5"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{catatan}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+				<textField isBlankWhenNull="false">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="160" y="0" width="54" height="30" isPrintWhenDetailOverflows="true" uuid="58064a20-149c-431b-94be-09f3106dd520"/>
+					<box topPadding="5" bottomPadding="5">
+						<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Top">
+						<font size="9"/>
+						<paragraph leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($P{REPORT_FORMAT}.equals("XLSX") == false)]]></printWhenExpression>
+			<textField>
+				<reportElement x="175" y="0" width="150" height="20" uuid="a1b2c3d4-e5f6-7890-ab03-000000000001"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Halaman " + $V{PAGE_NUMBER} + " dari "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="325" y="0" width="50" height="20" uuid="a1b2c3d4-e5f6-7890-ab03-000000000002"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="153" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($P{REPORT_FORMAT}.equals("XLSX") == false)]]></printWhenExpression>
+			<staticText>
+				<reportElement x="385" y="36" width="170" height="20" uuid="e51ebc62-3b12-4ef2-a5be-79f7064cb18b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Mengetahui,]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="385" y="16" width="170" height="20" uuid="dccc192a-3f78-487b-9902-4cdf45f652c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Jakarta, " + new java.text.SimpleDateFormat("d MMMM yyyy", new java.util.Locale("id")).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="385" y="98" width="170" height="20" uuid="f592a200-085b-41ba-a04f-b24cde0e0dd9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["(" + $P{name} + ")"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="385" y="118" width="170" height="20" uuid="7059e260-8fdb-477c-9299-6ac60b747aa8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{role}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

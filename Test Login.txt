@@ -1,0 +1,11 @@
+Role Admin
+username : admin
+password : admin
+
+Role Gudang
+username : hiroto
+password : hiroto
+
+Role Staff
+username : Kidou
+password : kidou

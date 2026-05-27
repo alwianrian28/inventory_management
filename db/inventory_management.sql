@@ -1,0 +1,1003 @@
+CREATE DATABASE IF NOT EXISTS `inventory_management`;
+
+USE `inventory_management`;
+
+/*Table structure for table `user` */
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `role` VARCHAR(45) NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`user_id`)
+);
+
+/*Data for the table `user` */
+
+INSERT  INTO `user`(`user_id`,`name`,`email`,`username`,`password`,`role`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'Administrator','admin@gmail.com','admin','$2a$10$aCAVa2saZ5/xu9Jr8hGeBOxQnw0nmjBh1lhLHYBGO4x8gTyhuvBqK','Admin','2025-12-30 23:04:10',0,'2026-01-02 05:11:22',0,NULL,NULL,0),
+(2,'Kidou','kidou@gmail.com','kidou','$2a$10$nIUFtwRQg7PkCmlpkX17tOFjhHe8hOuyS3kC9Klkvh6FGDPwhFsLa','Staff','2026-01-02 17:14:22',1,NULL,NULL,NULL,NULL,0),
+(3,'Hiroto','hiroto@gmail.com','hiroto','$2a$10$DGzn//xuFA.ApESgGxfOf.wXD7NP.76Xp/tWoIAHempXs1K1pg2cK','Gudang','2026-01-02 17:14:37',1,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `kategori` */
+
+DROP TABLE IF EXISTS `kategori`;
+
+CREATE TABLE `kategori` (
+  `kategori_id` INT NOT NULL AUTO_INCREMENT,
+  `kategori_name` VARCHAR(45) NOT NULL,
+  `keterangan` VARCHAR(255) NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`kategori_id`)
+);
+
+/*Data for the table `kategori` */
+
+INSERT  INTO `kategori`(`kategori_id`,`kategori_name`,`keterangan`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'Novel & Fiksi','Novel dewasa, thriller, roman','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(2,'Non-Fiksi','Biografi, sejarah, ensiklopedia ringkas','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(3,'Pendidikan','Buku pelajaran SD-SMA, modul, LKS','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(4,'Anak & Remaja','Cerita anak, activity book, young adult','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(5,'Komik & Manga','Komik lokal dan manga import','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(6,'Agama & Spiritual','Al-Quran, doa, motivasi islami','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(7,'Bisnis & Motivasi','Self-help, entrepreneurship, leadership','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(8,'Sains & Teknologi','IT, sains populer, coding','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(9,'Seni & Hobi','Menggambar, musik, fotografi','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(10,'Bahasa','Inggris, Mandarin, Jepang, dictionary','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(11,'Sastra Indonesia','Sastra klasik dan kontemporer','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(12,'Alat Tulis','Pulpen, buku tulis, penghapus','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(13,'Stationery','Planner, sticky notes, map','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(14,'Majalah','Majalah mingguan dan bulanan','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(15,'Referensi','Kamus, atlas, buku panduan','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `merk` */
+
+DROP TABLE IF EXISTS `merk`;
+
+CREATE TABLE `merk` (
+  `merk_id` INT NOT NULL AUTO_INCREMENT,
+  `merk_name` VARCHAR(45) NOT NULL,
+  `keterangan` VARCHAR(255) NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`merk_id`)
+);
+
+/*Data for the table `merk` */
+
+INSERT  INTO `merk`(`merk_id`,`merk_name`,`keterangan`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'Gramedia Pustaka','Penerbit novel & umum','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(2,'Erlangga','Penerbit pendidikan','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(3,'Mizan','Penerbit sastra & religi','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(4,'Bentang Pustaka','Sastra Indonesia','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(5,'Grasindo','Pendidikan & komik','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(6,'Elex Media Komputindo','Komputer & hobi','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(7,'Kompas','Jurnalistik & non-fiksi','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(8,'Republika','Agama & inspirasi','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(9,'Bhuana Ilmu Populer','Sains populer','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(10,'GagasMedia','Novel muda','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(11,'Penerbit Buku Kompas','Referensi & sejarah','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(12,'Pustaka Jaya','Pelajaran & modul','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(13,'Shogakukan','Manga Jepang','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(14,'Shueisha','Manga Jump','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(15,'Marvel Comics','Komik superhero','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(16,'Disney Publishing','Buku anak Disney','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(17,'National Geographic','Edukasi & alam','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(18,'Oxford University Press','Bahasa Inggris','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(19,'Cambridge','Bahasa & akademik','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(20,'Kawan Pustaka','Sastra & budaya','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(21,'Ansori','Agama & pesantren','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(22,'Buku Guru','Buku pegangan guru','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(23,'Stationery Plus','Merek alat tulis','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(24,'Paperline','Kertas & notebook','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(25,'Faber-Castell','Alat gambar & tulis','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(26,'Pilot','Pulpen & pena','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(27,'Staedtler','Pensil & penghapus','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(28,'Sakura','Spidol & art supply','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(29,'Kiky','Stationery lokal','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(30,'Eureka House','Private label toko','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `rak` */
+
+DROP TABLE IF EXISTS `rak`;
+
+CREATE TABLE `rak` (
+  `rak_id` INT NOT NULL AUTO_INCREMENT,
+  `rak_code` VARCHAR(45) NOT NULL,
+  `rak_name` VARCHAR(45) NOT NULL,
+  `keterangan` VARCHAR(255) NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`rak_id`)
+);
+
+/*Data for the table `rak` */
+
+INSERT  INTO `rak`(`rak_id`,`rak_code`,`rak_name`,`keterangan`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'R-A01','Rak Novel A','Novel fiksi & thriller','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(2,'R-A02','Rak Novel B','Novel romance & drama','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(3,'R-B01','Rak Pendidikan','SD, SMP, SMA','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(4,'R-B02','Rak UTBK & SNBT','Tryout & modul masuk PTN','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(5,'R-C01','Rak Anak','Cerita & activity anak','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(6,'R-C02','Rak Young Adult','Remaja & coming of age','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(7,'R-D01','Rak Komik','Komik & graphic novel','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(8,'R-D02','Rak Manga','Manga serial','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(9,'R-E01','Rak Agama','Al-Quran & spiritual','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(10,'R-F01','Rak Motivasi','Self-help & bisnis','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(11,'R-G01','Rak IT & Sains','Teknologi & sains','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(12,'R-H01','Rak Bahasa','Inggris & Mandarin','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(13,'R-I01','Rak ATK Meja','Pulpen & pensil','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(14,'R-I02','Rak Notebook','Buku tulis & planner','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(15,'R-J01','Rak Majalah','Display majalah','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(16,'R-K01','Rak Promo','Buku diskon & bundle','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `gudang` */
+
+DROP TABLE IF EXISTS `gudang`;
+
+CREATE TABLE `gudang` (
+  `gudang_id` INT NOT NULL AUTO_INCREMENT,
+  `gudang_code` VARCHAR(45) NOT NULL,
+  `gudang_name` VARCHAR(45) NOT NULL,
+  `alamat` VARCHAR(255) NOT NULL,
+  `keterangan` VARCHAR(255) NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`gudang_id`)
+);
+
+/*Data for the table `gudang` */
+
+INSERT  INTO `gudang`(`gudang_id`,`gudang_code`,`gudang_name`,`alamat`,`keterangan`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'GD-01','Gudang Utama','Jl. Pendidikan No. 88, Jakarta Selatan','Penyimpanan stok utama','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(2,'GD-02','Etalase Toko','Lantai 1 Eureka Bookhouse','Display penjualan retail','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(3,'GD-03','Gudang Online','Jl. Kurir No. 12, Jakarta Timur','Pemenuhan pesanan e-commerce','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `supplier` */
+
+DROP TABLE IF EXISTS `supplier`;
+
+CREATE TABLE `supplier` (
+  `supplier_id` INT NOT NULL AUTO_INCREMENT,
+  `supplier_name` VARCHAR(45) NOT NULL,
+  `telepon` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `alamat` VARCHAR(45) NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`supplier_id`)
+);
+
+/*Data for the table `supplier` */
+
+INSERT  INTO `supplier`(`supplier_id`,`supplier_name`,`telepon`,`email`,`alamat`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'PT Gramedia Distribusi','021-7894561','distribusi@gramedia.com','Jakarta Pusat','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(2,'PT Erlangga Massindo','021-8790123','sales@erlangga.co.id','Jakarta Selatan','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(3,'PT Mizan Pustaka','022-6123456','order@mizan.com','Bandung','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(4,'PT Kompas Gramedia','021-2567890','supply@kompas.id','Jakarta Barat','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(5,'CV Buku Anak Nusantara','0812-3344556','anak@bukuanak.id','Depok','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(6,'PT Elex Media Komputindo','021-5301234','halo@elexmedia.co.id','Jakarta Pusat','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(7,'PT Republika Media','021-8754321','redaksi@republika.co.id','Jakarta Selatan','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(8,'PT Bhuana Ilmu Populer','021-3912345','info@bip.co.id','Jakarta Timur','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(9,'PT Shogakukan Asia','021-5798765','import@manga.id','Jakarta Pusat','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(10,'CV Stationery Jaya','0813-9988776','atk@stationeryjaya.com','Tangerang','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(11,'PT Oxford Indonesia','021-5678901','school@oup.com','Jakarta Selatan','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(12,'PT Eureka Book Supply','021-5566778','procurement@eurekabook.id','Jakarta Selatan','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `satuan` */
+
+DROP TABLE IF EXISTS `satuan`;
+
+CREATE TABLE `satuan` (
+  `satuan_id` INT NOT NULL AUTO_INCREMENT,
+  `satuan_name` VARCHAR(45) NOT NULL,
+  `keterangan` VARCHAR(255) NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`satuan_id`)
+);
+
+/*Data for the table `satuan` */
+
+INSERT  INTO `satuan`(`satuan_id`,`satuan_name`,`keterangan`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'Eks','Satuan per buku','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(2,'Buah','Satuan per item fisik','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(3,'Pack','Paket isi banyak','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(4,'Set','Set lengkap seri','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(5,'Lembar','Kertas & lembaran','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(6,'Box','Kemasan box','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(7,'Rim','Kertas per rim','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(8,'Dus','Kemasan distributor','2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `barang` */
+
+DROP TABLE IF EXISTS `barang`;
+
+CREATE TABLE `barang` (
+  `barang_id` INT NOT NULL AUTO_INCREMENT,
+  `barang_code` VARCHAR(45) NOT NULL,
+  `barcode` VARCHAR(45) NOT NULL,
+  `barang_name` VARCHAR(45) NOT NULL,
+  `merk_id` INT NOT NULL,
+  `kategori_id` INT NOT NULL,
+  `satuan_id` INT NOT NULL,
+  `harga_jual` DECIMAL(12,2) NOT NULL,
+  `stok_minimum` INT NOT NULL DEFAULT '0',
+  `supplier_id` INT NOT NULL,
+  `photo` VARCHAR(255) DEFAULT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`barang_id`),
+  KEY `fk_barang_supplier_idx` (`supplier_id`),
+  KEY `fk_barang_merk_idx` (`merk_id`),
+  KEY `fk_barang_satuan_idx` (`satuan_id`),
+  KEY `fk_barang_kategori_idx` (`kategori_id`),
+  CONSTRAINT `fk_barang_kategori` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`kategori_id`),
+  CONSTRAINT `fk_barang_merk` FOREIGN KEY (`merk_id`) REFERENCES `merk` (`merk_id`),
+  CONSTRAINT `fk_barang_satuan` FOREIGN KEY (`satuan_id`) REFERENCES `satuan` (`satuan_id`),
+  CONSTRAINT `fk_barang_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`)
+);
+
+/*Data for the table `barang` */
+
+INSERT  INTO `barang`(`barang_id`,`barang_code`,`barcode`,`barang_name`,`merk_id`,`kategori_id`,`satuan_id`,`harga_jual`,`stok_minimum`,`supplier_id`,`photo`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'BK-0001','9786022867825','Laskar Pelangi',11,1,1,89000.0,15,1,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(2,'BK-0002','9786021419610','Bumi Manusia',11,1,1,125000.0,10,3,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(3,'BK-0003','9786025614226','Filosofi Teras',8,7,1,78000.0,20,4,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(4,'BK-0004','9786025108603','Atomic Habits (ID)',6,7,1,95000.0,25,9,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(5,'BK-0005','9786024744854','Rich Dad Poor Dad',6,7,1,85000.0,15,9,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(6,'BK-0006','9786023341057','Matematika SMP Kelas 8',2,3,1,72000.0,30,2,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(7,'BK-0007','9786022719583','IPA SMP Kelas 9',2,3,1,75000.0,30,2,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(8,'BK-0008','9786022458591','Bahasa Indonesia SMA',2,3,1,68000.0,25,2,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(9,'BK-0009','9786028078673','Modul UTBK SNBT 2026',4,3,1,145000.0,20,2,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(10,'BK-0010','9786021533224','Si Anak Pintar',5,4,1,45000.0,20,5,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(11,'BK-0011','9786021499914','Petualangan Sherina',5,4,1,52000.0,15,5,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(12,'BK-0012','9786022571945','Negeri 5 Menara',16,4,1,65000.0,20,3,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(13,'BK-0013','9786024668136','One Piece Vol. 108',13,5,1,42000.0,40,9,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(14,'BK-0014','9786024903402','Detektif Conan Vol. 102',14,5,1,38000.0,35,9,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(15,'BK-0015','9786029478454','Marvel Avengers Collection',15,5,1,175000.0,10,9,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(16,'BK-0016','9786021445199','Al-Quran Terjemah Mukhtashar',8,6,1,185000.0,15,7,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(17,'BK-0017','9786024335942','30 Hari Bahasa Inggris',18,10,1,69000.0,25,11,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(18,'BK-0018','9786028038374','Cambridge English A2',19,10,1,210000.0,12,11,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(19,'BK-0019','9786024698379','Sapiens (Edisi Indonesia)',9,2,1,135000.0,15,8,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(20,'BK-0020','9786028536477','Brief History of Time',9,8,1,98000.0,10,8,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(21,'BK-0021','9786025667265','Clean Code Bahasa Indonesia',6,8,1,165000.0,12,6,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(22,'BK-0022','9786021109031','Python untuk Pemula',6,8,1,89000.0,20,6,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(23,'BK-0023','9786023678638','Menggambar Karakter Anime',25,9,1,75000.0,15,6,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(24,'BK-0024','9786028090293','National Geographic Atlas',17,2,1,245000.0,8,8,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(25,'BK-0025','9786026708456','Kamus Besar Bahasa Indonesia',11,15,1,320000.0,10,4,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(26,'BK-0026','9786025661907','Planner 2026 Hardcover',24,13,2,85000.0,30,10,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(27,'BK-0027','9786023608513','Sticky Notes Neon Pack',29,13,3,25000.0,50,10,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(28,'BK-0028','9786024612365','Notebook A5 70gsm 58L',24,13,1,18000.0,60,10,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(29,'BK-0029','9786026647119','Pulpen Pilot G2 Hitam',26,12,2,22000.0,80,10,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(30,'BK-0030','9786022714803','Pensil 2B Faber Castell',25,12,2,15000.0,100,10,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(31,'BK-0031','9786022556017','Penghapus Staedtler',27,12,2,8000.0,100,10,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(32,'BK-0032','9786027374122','Spidol Sakura Pigma',28,12,2,35000.0,40,10,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(33,'BK-0033','9786022622631','Buku Tulis Big Boss 38L',24,12,1,12000.0,80,10,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(34,'BK-0034','9786027022674','Majalah National Geographic',17,14,1,55000.0,25,4,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(35,'BK-0035','9786026770619','Majalah Tempo Edisi Khusus',7,14,1,48000.0,20,4,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(36,'BK-0036','9786025437923','Nanti Kita Cerita Tentang Hari Ini',10,1,1,72000.0,20,1,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(37,'BK-0037','9786021728977','Pulang (Tere Liye)',10,1,1,68000.0,25,1,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(38,'BK-0038','9786028707870','Bumi (Tere Liye)',10,1,1,65000.0,25,1,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(39,'BK-0039','9786029996414','Komik Doraemon Vol. 50',13,5,1,28000.0,45,9,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(40,'BK-0040','9786023094235','Harry Potter 1 (New Cover)',16,4,1,135000.0,18,1,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(41,'BK-0041','9786027350753','The Little Prince (ID)',20,4,1,55000.0,20,1,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(42,'BK-0042','9786022322047','Steins;Gate Light Novel',13,5,1,95000.0,12,9,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(43,'BK-0043','9786025918715','Buku Tabungan Anak',30,4,1,35000.0,30,12,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(44,'BK-0044','9786027067228','Bundle ATK Pelajar',30,12,4,45000.0,25,12,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(45,'BK-0045','9786024226067','Seri Matematika Dasar SD',2,3,4,195000.0,15,2,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(46,'BK-0046','9786022166941','Ensiklopedia Anak Eureka',30,4,1,275000.0,10,12,NULL,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `stok_gudang` */
+
+DROP TABLE IF EXISTS `stok_gudang`;
+
+CREATE TABLE `stok_gudang` (
+  `stok_id` INT NOT NULL AUTO_INCREMENT,
+  `barang_id` INT NOT NULL,
+  `jumlah` INT NOT NULL,
+  `harga_beli` DECIMAL(12,2) NOT NULL,
+  `subtotal` DECIMAL(12,2) NOT NULL,
+  `rak_id` INT NOT NULL,
+  `gudang_id` INT NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`stok_id`),
+  KEY `fk_stok_gudang_rak1_idx` (`rak_id`),
+  KEY `fk_stok_gudang_gudang1_idx` (`gudang_id`),
+  KEY `fk_stok_gudang_barang1_idx` (`barang_id`),
+  CONSTRAINT `fk_stok_gudang_barang1` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`barang_id`),
+  CONSTRAINT `fk_stok_gudang_gudang1` FOREIGN KEY (`gudang_id`) REFERENCES `gudang` (`gudang_id`),
+  CONSTRAINT `fk_stok_gudang_rak1` FOREIGN KEY (`rak_id`) REFERENCES `rak` (`rak_id`)
+);
+
+/*Data for the table `stok_gudang` */
+
+INSERT  INTO `stok_gudang`(`stok_id`,`barang_id`,`jumlah`,`harga_beli`,`subtotal`,`rak_id`,`gudang_id`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,1,44,64080.0,2819520.0,10,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(2,2,27,90000.0,2430000.0,13,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(3,3,35,56160.0,1965600.0,12,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(4,3,49,56160.0,2751840.0,3,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(5,4,46,68400.0,3146400.0,6,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(6,5,43,61200.0,2631600.0,11,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(7,5,22,61200.0,1346400.0,8,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(8,6,66,51840.0,3421440.0,9,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(9,6,55,51840.0,2851200.0,7,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(10,7,73,54000.0,3942000.0,5,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(11,7,46,54000.0,2484000.0,9,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(12,8,66,48960.0,3231360.0,12,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(13,8,32,48960.0,1566720.0,16,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(14,9,29,104400.0,3027600.0,5,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(15,10,23,32400.0,745200.0,13,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(16,10,74,32400.0,2397600.0,9,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(17,11,29,37440.0,1085760.0,9,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(18,12,29,46800.0,1357200.0,10,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(19,12,73,46800.0,3416400.0,1,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(20,13,79,30240.0,2388960.0,6,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(21,13,28,30240.0,846720.0,10,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(22,14,34,27360.0,930240.0,12,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(23,15,56,126000.0,7056000.0,16,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(24,16,54,133200.0,7192800.0,8,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(25,16,25,133200.0,3330000.0,3,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(26,17,31,49680.0,1540080.0,5,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(27,18,48,151200.0,7257600.0,14,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(28,19,54,97200.0,5248800.0,13,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(29,20,71,70560.0,5009760.0,15,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(30,20,43,70560.0,3034080.0,3,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(31,21,43,118800.0,5108400.0,1,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(32,22,44,64080.0,2819520.0,3,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(33,23,24,54000.0,1296000.0,8,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(34,23,77,54000.0,4158000.0,7,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(35,24,46,176400.0,8114400.0,16,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(36,24,39,176400.0,6879600.0,4,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(37,25,60,230400.0,13824000.0,14,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(38,25,21,230400.0,4838400.0,4,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(39,26,28,61200.0,1713600.0,8,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(40,26,72,61200.0,4406400.0,5,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(41,27,74,18000.0,1332000.0,8,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(42,27,24,18000.0,432000.0,15,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(43,28,21,12960.0,272160.0,1,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(44,29,36,15840.0,570240.0,14,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(45,30,66,10800.0,712800.0,2,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(46,31,64,5760.0,368640.0,9,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(47,32,51,25200.0,1285200.0,14,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(48,32,77,25200.0,1940400.0,5,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(49,33,22,8640.0,190080.0,2,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(50,34,21,39600.0,831600.0,16,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(51,35,22,34560.0,760320.0,3,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(52,36,23,51840.0,1192320.0,8,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(53,37,20,48960.0,979200.0,3,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(54,38,48,46800.0,2246400.0,7,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(55,38,55,46800.0,2574000.0,8,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(56,39,53,20160.0,1068480.0,15,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(57,40,16,97200.0,1555200.0,15,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(58,41,24,39600.0,950400.0,7,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(59,42,59,68400.0,4035600.0,3,3,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(60,43,51,25200.0,1285200.0,6,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(61,43,53,25200.0,1335600.0,1,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(62,44,28,32400.0,907200.0,5,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(63,44,28,32400.0,907200.0,5,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(64,45,58,140400.0,8143200.0,7,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(65,46,79,198000.0,15642000.0,16,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(66,46,21,198000.0,4158000.0,3,2,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `barang_keluar` */
+
+DROP TABLE IF EXISTS `barang_keluar`;
+
+CREATE TABLE `barang_keluar` (
+  `barang_keluar_id` INT NOT NULL AUTO_INCREMENT,
+  `no_transaksi` VARCHAR(45) NOT NULL,
+  `tanggal_keluar` DATE NOT NULL,
+  `jenis_keluar` VARCHAR(45) NOT NULL,
+  `tujuan` VARCHAR(45) NOT NULL,
+  `total_jumlah` INT NOT NULL,
+  `total_keluar` DECIMAL(12,2) NOT NULL,
+  `user_id` INT NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`barang_keluar_id`),
+  KEY `fk_barang_keluar_user_idx` (`user_id`),
+  CONSTRAINT `fk_barang_keluar_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+);
+
+/*Data for the table `barang_keluar` */
+
+INSERT  INTO `barang_keluar`(`barang_keluar_id`,`no_transaksi`,`tanggal_keluar`,`jenis_keluar`,`tujuan`,`total_jumlah`,`total_keluar`,`user_id`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'BK-202512-001','2025-12-25','PENJUALAN','Sekolah Mitra',7,423000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(2,'BK-202603-002','2026-03-13','PENJUALAN','Pesanan Online',4,740000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(3,'BK-202603-003','2026-03-06','PENJUALAN','Reseller',8,1160000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(4,'BK-202602-004','2026-02-23','PENJUALAN','Event Bazar Buku',3,216000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(5,'BK-202512-005','2025-12-27','PENJUALAN','Kantor Korporat',9,1470000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(6,'BK-202603-006','2026-03-22','PENJUALAN','Reseller',12,1137000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(7,'BK-202601-007','2026-01-09','PENJUALAN','Sekolah Mitra',9,641000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(8,'BK-202604-008','2026-04-26','PENJUALAN','Pesanan Online',9,1202000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(9,'BK-202603-009','2026-03-15','PENJUALAN','Reseller',6,910000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(10,'BK-202601-010','2026-01-17','PENJUALAN','Pelanggan Walk-in',6,685000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(11,'BK-202601-011','2026-01-14','PENJUALAN','Promo Hari Raya',5,295000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(12,'BK-202603-012','2026-03-27','PENJUALAN','Sekolah Mitra',10,503000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(13,'BK-202511-013','2025-11-17','PENJUALAN','Kantor Korporat',11,774000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(14,'BK-202511-014','2025-11-22','PENJUALAN','Pesanan Online',4,288000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(15,'BK-202604-015','2026-04-05','PENJUALAN','Reseller',8,308000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(16,'BK-202601-016','2026-01-16','PENJUALAN','Event Bazar Buku',9,836000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(17,'BK-202601-017','2026-01-07','PENJUALAN','Promo Hari Raya',2,104000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(18,'BK-202512-018','2025-12-15','PENJUALAN','Reseller',1,52000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(19,'BK-202602-019','2026-02-13','PENJUALAN','Kantor Korporat',11,2265000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(20,'BK-202511-020','2025-11-19','PENJUALAN','Promo Hari Raya',7,415000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(21,'BK-202602-021','2026-02-17','PENJUALAN','Pelanggan Walk-in',4,610000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(22,'BK-202511-022','2025-11-19','PENJUALAN','Pelanggan Walk-in',8,694000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(23,'BK-202602-023','2026-02-21','PENJUALAN','Pelanggan Walk-in',16,2607000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(24,'BK-202602-024','2026-02-21','PENJUALAN','Pelanggan Walk-in',3,54000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(25,'BK-202604-025','2026-04-04','PENJUALAN','Sekolah Mitra',2,144000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(26,'BK-202604-026','2026-04-22','PENJUALAN','Event Bazar Buku',3,135000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(27,'BK-202603-027','2026-03-28','PENJUALAN','Pelanggan Walk-in',9,420000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(28,'BK-202601-028','2026-01-11','PENJUALAN','Pesanan Online',15,1075000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(29,'BK-202604-029','2026-04-21','PENJUALAN','Pelanggan Walk-in',8,1136000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(30,'BK-202601-030','2026-01-13','PENJUALAN','Promo Hari Raya',6,747000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(31,'BK-202602-031','2026-02-12','PENJUALAN','Event Bazar Buku',5,175000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(32,'BK-202602-032','2026-02-27','PENJUALAN','Kantor Korporat',5,210000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(33,'BK-202602-033','2026-02-01','PENJUALAN','Reseller',14,1895000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(34,'BK-202602-034','2026-02-21','PENJUALAN','Promo Hari Raya',13,1203000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(35,'BK-202511-035','2025-11-04','PENJUALAN','Reseller',11,657000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(36,'BK-202603-036','2026-03-11','PENJUALAN','Promo Hari Raya',11,191000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(37,'BK-202512-037','2025-12-08','PENJUALAN','Kantor Korporat',6,285000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(38,'BK-202601-038','2026-01-10','PENJUALAN','Event Bazar Buku',14,1385000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(39,'BK-202604-039','2026-04-18','PENJUALAN','Kantor Korporat',8,134000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(40,'BK-202601-040','2026-01-25','PENJUALAN','Reseller',13,1101000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(41,'BK-202511-041','2025-11-12','PENJUALAN','Sekolah Mitra',12,2500000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(42,'BK-202604-042','2026-04-01','PENJUALAN','Sekolah Mitra',1,22000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(43,'BK-202603-043','2026-03-15','PENJUALAN','Kantor Korporat',4,180000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(44,'BK-202604-044','2026-04-17','PENJUALAN','Pesanan Online',3,24000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(45,'BK-202601-045','2026-01-26','PENJUALAN','Reseller',13,1720000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(46,'BK-202603-046','2026-03-19','PENJUALAN','Pelanggan Walk-in',3,555000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(47,'BK-202512-047','2025-12-29','PENJUALAN','Promo Hari Raya',1,18000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(48,'BK-202604-048','2026-04-12','PENJUALAN','Promo Hari Raya',2,44000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(49,'BK-202604-049','2026-04-27','PENJUALAN','Sekolah Mitra',3,234000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(50,'BK-202511-050','2025-11-15','PENJUALAN','Sekolah Mitra',10,1290000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(51,'BK-202603-051','2026-03-25','PENJUALAN','Promo Hari Raya',7,464000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(52,'BK-202602-052','2026-02-06','PENJUALAN','Reseller',7,265000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(53,'BK-202602-053','2026-02-27','PENJUALAN','Promo Hari Raya',7,125000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(54,'BK-202604-054','2026-04-23','PENJUALAN','Reseller',9,715000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0),
+(55,'BK-202601-055','2026-01-16','PENJUALAN','Promo Hari Raya',11,806000.0,1,'2026-01-15 10:00:00',NULL,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `barang_keluar_detail` */
+
+DROP TABLE IF EXISTS `barang_keluar_detail`;
+
+CREATE TABLE `barang_keluar_detail` (
+  `barang_keluar_detail_id` INT NOT NULL AUTO_INCREMENT,
+  `barang_keluar_id` INT NOT NULL,
+  `barang_id` INT NOT NULL,
+  `jumlah` INT NOT NULL,
+  `harga_jual` DECIMAL(12,2) NOT NULL,
+  `subtotal` DECIMAL(12,2) NOT NULL,
+  PRIMARY KEY (`barang_keluar_detail_id`),
+  KEY `fk_barang_keluar_detail_keluar_idx` (`barang_keluar_id`),
+  KEY `fk_barang_keluar_detail_barang_idx` (`barang_id`),
+  CONSTRAINT `fk_barang_keluar_detail` FOREIGN KEY (`barang_keluar_id`) REFERENCES `barang_keluar` (`barang_keluar_id`),
+  CONSTRAINT `fk_barang_keluar_detail_barang` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`barang_id`)
+);
+
+/*Data for the table `barang_keluar_detail` */
+
+INSERT  INTO `barang_keluar_detail`(`barang_keluar_detail_id`,`barang_keluar_id`,`barang_id`,`jumlah`,`harga_jual`,`subtotal`) VALUES 
+(1,1,22,3,89000.0,267000.0),
+(2,1,39,3,28000.0,84000.0),
+(3,1,36,1,72000.0,72000.0),
+(4,2,16,4,185000.0,740000.0),
+(5,3,45,4,195000.0,780000.0),
+(6,3,42,4,95000.0,380000.0),
+(7,4,6,3,72000.0,216000.0),
+(8,5,20,5,98000.0,490000.0),
+(9,5,24,4,245000.0,980000.0),
+(10,6,28,5,18000.0,90000.0),
+(11,6,22,3,89000.0,267000.0),
+(12,6,45,4,195000.0,780000.0),
+(13,7,15,1,175000.0,175000.0),
+(14,7,13,3,42000.0,126000.0),
+(15,7,8,5,68000.0,340000.0),
+(16,8,14,4,38000.0,152000.0),
+(17,8,18,5,210000.0,1050000.0),
+(18,9,7,2,75000.0,150000.0),
+(19,9,19,2,135000.0,270000.0),
+(20,9,24,2,245000.0,490000.0),
+(21,10,18,1,210000.0,210000.0),
+(22,10,4,5,95000.0,475000.0),
+(23,11,41,4,55000.0,220000.0),
+(24,11,7,1,75000.0,75000.0),
+(25,12,31,4,8000.0,32000.0),
+(26,12,22,2,89000.0,178000.0),
+(27,12,4,3,95000.0,285000.0),
+(28,12,31,1,8000.0,8000.0),
+(29,13,5,5,85000.0,425000.0),
+(30,13,41,1,55000.0,55000.0),
+(31,13,10,2,45000.0,90000.0),
+(32,13,37,3,68000.0,204000.0),
+(33,14,36,4,72000.0,288000.0),
+(34,15,34,4,55000.0,220000.0),
+(35,15,29,4,22000.0,88000.0),
+(36,16,20,5,98000.0,490000.0),
+(37,16,40,1,135000.0,135000.0),
+(38,16,40,1,135000.0,135000.0),
+(39,16,14,2,38000.0,76000.0),
+(40,17,11,2,52000.0,104000.0),
+(41,18,11,1,52000.0,52000.0),
+(42,19,19,1,135000.0,135000.0),
+(43,19,15,3,175000.0,525000.0),
+(44,19,46,3,275000.0,825000.0),
+(45,19,45,4,195000.0,780000.0),
+(46,20,17,5,69000.0,345000.0),
+(47,20,43,2,35000.0,70000.0),
+(48,21,42,2,95000.0,190000.0),
+(49,21,18,2,210000.0,420000.0),
+(50,22,20,5,98000.0,490000.0),
+(51,22,37,3,68000.0,204000.0),
+(52,23,45,3,195000.0,585000.0),
+(53,23,45,4,195000.0,780000.0),
+(54,23,18,5,210000.0,1050000.0),
+(55,23,35,4,48000.0,192000.0),
+(56,24,28,3,18000.0,54000.0),
+(57,25,6,2,72000.0,144000.0),
+(58,26,44,3,45000.0,135000.0),
+(59,27,31,5,8000.0,40000.0),
+(60,27,42,4,95000.0,380000.0),
+(61,28,41,4,55000.0,220000.0),
+(62,28,6,4,72000.0,288000.0),
+(63,28,23,4,75000.0,300000.0),
+(64,28,22,3,89000.0,267000.0),
+(65,29,22,4,89000.0,356000.0),
+(66,29,45,4,195000.0,780000.0),
+(67,30,36,1,72000.0,72000.0),
+(68,30,30,1,15000.0,15000.0),
+(69,30,21,3,165000.0,495000.0),
+(70,30,21,1,165000.0,165000.0),
+(71,31,43,5,35000.0,175000.0),
+(72,32,13,5,42000.0,210000.0),
+(73,33,41,4,55000.0,220000.0),
+(74,33,4,2,95000.0,190000.0),
+(75,33,18,5,210000.0,1050000.0),
+(76,33,9,3,145000.0,435000.0),
+(77,34,8,1,68000.0,68000.0),
+(78,34,41,5,55000.0,275000.0),
+(79,34,16,2,185000.0,370000.0),
+(80,34,20,5,98000.0,490000.0),
+(81,35,6,2,72000.0,144000.0),
+(82,35,8,4,68000.0,272000.0),
+(83,35,8,2,68000.0,136000.0),
+(84,35,32,3,35000.0,105000.0),
+(85,36,27,4,25000.0,100000.0),
+(86,36,31,2,8000.0,16000.0),
+(87,36,30,5,15000.0,75000.0),
+(88,37,39,5,28000.0,140000.0),
+(89,37,9,1,145000.0,145000.0),
+(90,38,22,5,89000.0,445000.0),
+(91,38,18,1,210000.0,210000.0),
+(92,38,19,3,135000.0,405000.0),
+(93,38,38,5,65000.0,325000.0),
+(94,39,29,5,22000.0,110000.0),
+(95,39,31,3,8000.0,24000.0),
+(96,40,30,3,15000.0,45000.0),
+(97,40,13,2,42000.0,84000.0),
+(98,40,37,4,68000.0,272000.0),
+(99,40,15,4,175000.0,700000.0),
+(100,41,46,4,275000.0,1100000.0),
+(101,41,25,2,320000.0,640000.0),
+(102,41,32,1,35000.0,35000.0),
+(103,41,9,5,145000.0,725000.0),
+(104,42,29,1,22000.0,22000.0),
+(105,43,10,4,45000.0,180000.0),
+(106,44,31,3,8000.0,24000.0),
+(107,45,42,1,95000.0,95000.0),
+(108,45,22,5,89000.0,445000.0),
+(109,45,25,3,320000.0,960000.0),
+(110,45,41,4,55000.0,220000.0),
+(111,46,16,3,185000.0,555000.0),
+(112,47,28,1,18000.0,18000.0),
+(113,48,29,2,22000.0,44000.0),
+(114,49,3,3,78000.0,234000.0),
+(115,50,24,4,245000.0,980000.0),
+(116,50,10,2,45000.0,90000.0),
+(117,50,34,4,55000.0,220000.0),
+(118,51,11,2,52000.0,104000.0),
+(119,51,6,5,72000.0,360000.0),
+(120,52,32,5,35000.0,175000.0),
+(121,52,10,2,45000.0,90000.0),
+(122,53,30,3,15000.0,45000.0),
+(123,53,43,1,35000.0,35000.0),
+(124,53,30,3,15000.0,45000.0),
+(125,54,5,4,85000.0,340000.0),
+(126,54,23,5,75000.0,375000.0),
+(127,55,45,3,195000.0,585000.0),
+(128,55,30,3,15000.0,45000.0),
+(129,55,13,4,42000.0,168000.0),
+(130,55,31,1,8000.0,8000.0);
+
+/*Table structure for table `barang_keluar_tmp` */
+
+DROP TABLE IF EXISTS `barang_keluar_tmp`;
+
+CREATE TABLE `barang_keluar_tmp` (
+  `barang_keluar_tmp_id` INT NOT NULL AUTO_INCREMENT,
+  `barang_id` INT NOT NULL,
+  `jumlah` INT NOT NULL,
+  `harga_jual` DECIMAL(12,2) NOT NULL,
+  `subtotal` DECIMAL(12,2) NOT NULL,
+  PRIMARY KEY (`barang_keluar_tmp_id`),
+  KEY `fk_barang_keluar_tmp_barang_idx` (`barang_id`),
+  CONSTRAINT `fk_barang_keluar_tmp_barang` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`barang_id`)
+);
+
+/*Data for the table `barang_keluar_tmp` */
+
+/*Table structure for table `barang_masuk` */
+
+DROP TABLE IF EXISTS `barang_masuk`;
+
+CREATE TABLE `barang_masuk` (
+  `barang_masuk_id` INT NOT NULL AUTO_INCREMENT,
+  `no_transaksi` VARCHAR(45) NOT NULL,
+  `no_nota` VARCHAR(45) NOT NULL,
+  `tanggal_masuk` DATE NOT NULL,
+  `total_jumlah` INT DEFAULT NULL,
+  `total_masuk` DECIMAL(12,2) NOT NULL,
+  `supplier_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`barang_masuk_id`),
+  KEY `fk_barang_masuk_user_idx` (`user_id`),
+  KEY `fk_barang_masuk_supplier_idx` (`supplier_id`),
+  CONSTRAINT `fk_barang_masuk_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
+  CONSTRAINT `fk_barang_masuk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+);
+
+/*Data for the table `barang_masuk` */
+
+INSERT  INTO `barang_masuk`(`barang_masuk_id`,`no_transaksi`,`no_nota`,`tanggal_masuk`,`total_jumlah`,`total_masuk`,`supplier_id`,`user_id`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'BM-202512-001','INV-0001','2025-12-10',25,1602000.0,1,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(2,'BM-202512-002','INV-0002','2025-12-07',51,3885840.0,3,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(3,'BM-202510-003','INV-0003','2025-10-10',48,5217120.0,6,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(4,'BM-202511-004','INV-0004','2025-11-23',16,403200.0,11,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(5,'BM-202604-005','INV-0005','2026-04-18',30,1840320.0,9,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(6,'BM-202510-006','INV-0006','2025-10-07',40,6586560.0,3,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(7,'BM-202511-007','INV-0007','2025-11-26',23,2034000.0,4,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(8,'BM-202601-008','INV-0008','2026-01-11',38,2484000.0,6,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(9,'BM-202512-009','INV-0009','2025-12-24',23,1142640.0,1,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(10,'BM-202512-010','INV-0010','2025-12-07',16,322560.0,1,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(11,'BM-202604-011','INV-0011','2026-04-05',30,979200.0,6,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(12,'BM-202510-012','INV-0012','2025-10-12',31,1219680.0,12,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(13,'BM-202603-013','INV-0013','2026-03-09',58,3432960.0,6,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(14,'BM-202511-014','INV-0014','2025-11-02',27,1904400.0,4,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(15,'BM-202602-015','INV-0015','2026-02-18',37,2638800.0,1,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(16,'BM-202601-016','INV-0016','2026-01-22',31,686880.0,8,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(17,'BM-202604-017','INV-0017','2026-04-11',41,4167360.0,4,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(18,'BM-202604-018','INV-0018','2026-04-15',29,608400.0,2,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(19,'BM-202511-019','INV-0019','2025-11-07',61,4037040.0,11,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(20,'BM-202512-020','INV-0020','2025-12-03',40,3177360.0,2,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(21,'BM-202603-021','INV-0021','2026-03-06',44,3001680.0,12,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(22,'BM-202602-022','INV-0022','2026-02-02',7,1058400.0,11,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(23,'BM-202604-023','INV-0023','2026-04-01',15,2268000.0,5,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(24,'BM-202602-024','INV-0024','2026-02-16',17,550800.0,2,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(25,'BM-202603-025','INV-0025','2026-03-27',46,953280.0,3,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(26,'BM-202511-026','INV-0026','2025-11-22',28,2228400.0,7,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(27,'BM-202512-027','INV-0027','2025-12-30',38,2628000.0,5,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(28,'BM-202602-028','INV-0028','2026-02-02',34,900000.0,1,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(29,'BM-202602-029','INV-0029','2026-02-14',16,943200.0,1,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(30,'BM-202601-030','INV-0030','2026-01-27',15,745200.0,3,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(31,'BM-202511-031','INV-0031','2025-11-24',20,959040.0,8,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(32,'BM-202601-032','INV-0032','2026-01-29',53,4376880.0,1,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(33,'BM-202511-033','INV-0033','2025-11-21',45,779760.0,1,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(34,'BM-202604-034','INV-0034','2026-04-15',10,201600.0,6,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(35,'BM-202512-035','INV-0035','2025-12-19',47,4006800.0,2,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(36,'BM-202603-036','INV-0036','2026-03-01',59,3845520.0,12,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(37,'BM-202601-037','INV-0037','2026-01-18',13,450000.0,11,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(38,'BM-202601-038','INV-0038','2026-01-19',61,1974240.0,6,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(39,'BM-202601-039','INV-0039','2026-01-20',54,5862960.0,12,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0),
+(40,'BM-202603-040','INV-0040','2026-03-06',40,3657600.0,11,1,'2026-01-15 10:00:00',1,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `barang_masuk_detail` */
+
+DROP TABLE IF EXISTS `barang_masuk_detail`;
+
+CREATE TABLE `barang_masuk_detail` (
+  `barang_masuk_detail_id` INT NOT NULL AUTO_INCREMENT,
+  `barang_masuk_id` INT NOT NULL,
+  `stok_id` INT NOT NULL,
+  `jumlah` INT NOT NULL,
+  `harga_beli` DECIMAL(12,2) NOT NULL,
+  `subtotal` DECIMAL(12,2) NOT NULL,
+  `rak_id` INT NOT NULL,
+  `gudang_id` INT NOT NULL,
+  PRIMARY KEY (`barang_masuk_detail_id`),
+  KEY `fk_barang_masuk_detail_idx` (`barang_masuk_id`),
+  KEY `fk_barang_masuk_detail_stok_gudang1_idx` (`stok_id`),
+  KEY `fk_barang_masuk_detail_rak1_idx` (`rak_id`),
+  KEY `fk_barang_masuk_detail_gudang1_idx` (`gudang_id`),
+  CONSTRAINT `fk_barang_masuk_detail` FOREIGN KEY (`barang_masuk_id`) REFERENCES `barang_masuk` (`barang_masuk_id`),
+  CONSTRAINT `fk_barang_masuk_detail_gudang1` FOREIGN KEY (`gudang_id`) REFERENCES `gudang` (`gudang_id`),
+  CONSTRAINT `fk_barang_masuk_detail_rak1` FOREIGN KEY (`rak_id`) REFERENCES `rak` (`rak_id`),
+  CONSTRAINT `fk_barang_masuk_detail_stok_gudang1` FOREIGN KEY (`stok_id`) REFERENCES `stok_gudang` (`stok_id`)
+);
+
+/*Data for the table `barang_masuk_detail` */
+
+INSERT  INTO `barang_masuk_detail`(`barang_masuk_detail_id`,`barang_masuk_id`,`stok_id`,`jumlah`,`harga_beli`,`subtotal`,`rak_id`,`gudang_id`) VALUES 
+(1,1,32,25,64080.0,1602000.0,3,3),
+(2,2,44,22,15840.0,348480.0,14,1),
+(3,2,1,7,64080.0,448560.0,10,3),
+(4,2,64,22,140400.0,3088800.0,7,2),
+(5,3,52,18,51840.0,933120.0,8,1),
+(6,3,14,14,104400.0,1461600.0,5,2),
+(7,3,35,16,176400.0,2822400.0,16,3),
+(8,4,60,16,25200.0,403200.0,6,1),
+(9,5,57,12,97200.0,1166400.0,15,2),
+(10,5,17,18,37440.0,673920.0,9,2),
+(11,6,32,12,64080.0,768960.0,3,3),
+(12,6,27,8,151200.0,1209600.0,14,3),
+(13,6,37,20,230400.0,4608000.0,14,1),
+(14,7,34,12,54000.0,648000.0,7,2),
+(15,7,23,11,126000.0,1386000.0,16,1),
+(16,8,7,16,61200.0,979200.0,8,3),
+(17,8,59,22,68400.0,1504800.0,3,3),
+(18,9,26,23,49680.0,1142640.0,5,2),
+(19,10,56,16,20160.0,322560.0,15,1),
+(20,11,56,17,20160.0,342720.0,15,1),
+(21,11,53,13,48960.0,636480.0,3,1),
+(22,12,1,16,64080.0,1025280.0,10,3),
+(23,12,43,15,12960.0,194400.0,1,3),
+(24,13,13,21,48960.0,1028160.0,16,1),
+(25,13,30,15,70560.0,1058400.0,3,1),
+(26,13,40,22,61200.0,1346400.0,5,1),
+(27,14,61,10,25200.0,252000.0,1,2),
+(28,14,57,17,97200.0,1652400.0,15,2),
+(29,15,28,18,97200.0,1749600.0,13,3),
+(30,15,55,19,46800.0,889200.0,8,1),
+(31,16,22,10,27360.0,273600.0,12,2),
+(32,16,60,14,25200.0,352800.0,6,1),
+(33,16,49,7,8640.0,60480.0,2,2),
+(34,17,29,11,70560.0,776160.0,15,1),
+(35,17,15,6,32400.0,194400.0,13,1),
+(36,17,25,24,133200.0,3196800.0,3,2),
+(37,18,41,17,18000.0,306000.0,8,3),
+(38,18,48,12,25200.0,302400.0,5,1),
+(39,19,1,18,64080.0,1153440.0,10,3),
+(40,19,23,21,126000.0,2646000.0,16,1),
+(41,19,45,22,10800.0,237600.0,2,1),
+(42,20,14,21,104400.0,2192400.0,5,2),
+(43,20,52,19,51840.0,984960.0,8,1),
+(44,21,43,10,12960.0,129600.0,1,3),
+(45,21,46,13,5760.0,74880.0,9,3),
+(46,21,25,21,133200.0,2797200.0,3,2),
+(47,22,27,7,151200.0,1058400.0,14,3),
+(48,23,27,15,151200.0,2268000.0,14,3),
+(49,24,15,17,32400.0,550800.0,13,1),
+(50,25,22,18,27360.0,492480.0,12,2),
+(51,25,42,22,18000.0,396000.0,15,3),
+(52,25,45,6,10800.0,64800.0,2,1),
+(53,26,54,23,46800.0,1076400.0,7,2),
+(54,26,38,5,230400.0,1152000.0,4,1),
+(55,27,41,20,18000.0,360000.0,8,3),
+(56,27,23,18,126000.0,2268000.0,16,1),
+(57,28,32,10,64080.0,640800.0,3,3),
+(58,28,45,24,10800.0,259200.0,2,1),
+(59,29,54,7,46800.0,327600.0,7,2),
+(60,29,59,9,68400.0,615600.0,3,3),
+(61,30,26,15,49680.0,745200.0,5,2),
+(62,31,32,13,64080.0,833040.0,3,3),
+(63,31,42,7,18000.0,126000.0,15,3),
+(64,32,51,16,34560.0,552960.0,3,3),
+(65,32,23,25,126000.0,3150000.0,16,1),
+(66,32,3,12,56160.0,673920.0,12,1),
+(67,33,15,9,32400.0,291600.0,13,1),
+(68,33,46,23,5760.0,132480.0,9,3),
+(69,33,22,13,27360.0,355680.0,12,2),
+(70,34,56,10,20160.0,201600.0,15,1),
+(71,35,2,23,90000.0,2070000.0,13,1),
+(72,35,63,17,32400.0,550800.0,5,1),
+(73,35,65,7,198000.0,1386000.0,16,1),
+(74,36,24,14,133200.0,1864800.0,8,1),
+(75,36,62,23,32400.0,745200.0,5,1),
+(76,36,4,22,56160.0,1235520.0,3,2),
+(77,37,7,5,61200.0,306000.0,8,3),
+(78,37,42,8,18000.0,144000.0,15,3),
+(79,38,45,18,10800.0,194400.0,2,1),
+(80,38,19,24,46800.0,1123200.0,1,3),
+(81,38,51,19,34560.0,656640.0,3,3),
+(82,39,27,12,151200.0,1814400.0,14,3),
+(83,39,9,19,51840.0,984960.0,7,2),
+(84,39,25,23,133200.0,3063600.0,3,2),
+(85,40,32,20,64080.0,1281600.0,3,3),
+(86,40,31,20,118800.0,2376000.0,1,1);
+
+/*Table structure for table `barang_masuk_tmp` */
+
+DROP TABLE IF EXISTS `barang_masuk_tmp`;
+
+CREATE TABLE `barang_masuk_tmp` (
+  `barang_masuk_tmp_id` INT NOT NULL AUTO_INCREMENT,
+  `barang_id` INT NOT NULL,
+  `jumlah` INT NOT NULL,
+  `harga_beli` DECIMAL(12,2) NOT NULL,
+  `subtotal` DECIMAL(12,2) NOT NULL,
+  `rak_id` INT NOT NULL,
+  `gudang_id` INT NOT NULL,
+  PRIMARY KEY (`barang_masuk_tmp_id`),
+  KEY `fk_barang_masuk_tmp_barang_idx` (`barang_id`),
+  KEY `fk_barang_masuk_tmp_rak1_idx` (`rak_id`),
+  KEY `fk_barang_masuk_tmp_gudang1_idx` (`gudang_id`),
+  CONSTRAINT `fk_barang_masuk_tmp_barang` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`barang_id`),
+  CONSTRAINT `fk_barang_masuk_tmp_gudang1` FOREIGN KEY (`gudang_id`) REFERENCES `gudang` (`gudang_id`),
+  CONSTRAINT `fk_barang_masuk_tmp_rak1` FOREIGN KEY (`rak_id`) REFERENCES `rak` (`rak_id`)
+);
+
+/*Data for the table `barang_masuk_tmp` */
+
+/*Table structure for table `stok_opname` */
+
+DROP TABLE IF EXISTS `stok_opname`;
+
+CREATE TABLE `stok_opname` (
+  `opname_id` INT NOT NULL AUTO_INCREMENT,
+  `tanggal_opname` DATE NOT NULL,
+  `keterangan` VARCHAR(255) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `user_id` INT NOT NULL,
+  `insert_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `insert_by` INT DEFAULT NULL,
+  `update_at` TIMESTAMP NULL DEFAULT NULL,
+  `update_by` INT DEFAULT NULL,
+  `delete_at` TIMESTAMP NULL DEFAULT NULL,
+  `delete_by` INT DEFAULT NULL,
+  `is_delete` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`opname_id`),
+  KEY `fk_stock_opname_user_idx` (`user_id`),
+  CONSTRAINT `fk_stock_opname_user10` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+);
+
+/*Data for the table `stok_opname` */
+
+INSERT  INTO `stok_opname`(`opname_id`,`tanggal_opname`,`keterangan`,`status`,`user_id`,`insert_at`,`insert_by`,`update_at`,`update_by`,`delete_at`,`delete_by`,`is_delete`) VALUES 
+(1,'2026-01-10','Stock opname bulanan toko','Final',1,'2026-01-15 10:00:00',1,'2026-01-15 10:00:00',1,NULL,NULL,0),
+(2,'2026-02-05','Opname rak novel & komik','Final',1,'2026-01-15 10:00:00',1,'2026-01-15 10:00:00',1,NULL,NULL,0),
+(3,'2026-03-12','Opname alat tulis','Draft',3,'2026-01-15 10:00:00',3,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `stok_opname_detail` */
+
+DROP TABLE IF EXISTS `stok_opname_detail`;
+
+CREATE TABLE `stok_opname_detail` (
+  `opname_detail_id` INT NOT NULL AUTO_INCREMENT,
+  `opname_id` INT NOT NULL,
+  `barang_id` INT NOT NULL,
+  `stok_sistem` INT NOT NULL,
+  `stok_fisik` INT NOT NULL,
+  `selisih` INT NOT NULL,
+  `catatan` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`opname_detail_id`),
+  KEY `fk_stock_opname_tmp_barang_idx` (`barang_id`),
+  KEY `fk_stock_opname_detail_stock_opname_idx` (`opname_id`),
+  CONSTRAINT `fk_stock_opname_detail` FOREIGN KEY (`opname_id`) REFERENCES `stok_opname` (`opname_id`),
+  CONSTRAINT `fk_stock_opname_detail_barang` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`barang_id`)
+);
+
+/*Data for the table `stok_opname_detail` */
+
+INSERT  INTO `stok_opname_detail`(`opname_detail_id`,`opname_id`,`barang_id`,`stok_sistem`,`stok_fisik`,`selisih`,`catatan`) VALUES 
+(1,1,1,50,53,3,'Pengecekan fisik rak'),
+(2,1,2,93,95,2,'Pengecekan fisik rak'),
+(3,1,5,93,94,1,'Pengecekan fisik rak'),
+(4,1,12,109,110,1,'Pengecekan fisik rak'),
+(5,1,20,22,25,3,'Pengecekan fisik rak'),
+(6,2,13,55,52,-3,'Pengecekan fisik rak'),
+(7,2,14,92,89,-3,'Pengecekan fisik rak'),
+(8,2,15,97,101,4,'Pengecekan fisik rak'),
+(9,2,36,56,56,0,'Pengecekan fisik rak'),
+(10,2,38,97,99,2,'Pengecekan fisik rak'),
+(11,3,27,48,48,0,'Pengecekan fisik rak'),
+(12,3,28,99,100,1,'Pengecekan fisik rak'),
+(13,3,29,106,105,-1,'Pengecekan fisik rak'),
+(14,3,30,100,98,-2,'Pengecekan fisik rak'),
+(15,3,31,100,97,-3,'Pengecekan fisik rak');
+
+/*Table structure for table `stok_opname_tmp` */
+
+DROP TABLE IF EXISTS `stok_opname_tmp`;
+
+CREATE TABLE `stok_opname_tmp` (
+  `opname_tmp_id` INT NOT NULL AUTO_INCREMENT,
+  `barang_id` INT NOT NULL,
+  `stok_sistem` INT NOT NULL,
+  `stok_fisik` INT NOT NULL,
+  `selisih` INT NOT NULL,
+  `catatan` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`opname_tmp_id`),
+  KEY `fk_stock_opname_tmp_barang_idx` (`barang_id`),
+  CONSTRAINT `fk_stock_opname_tmp_barang` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`barang_id`)
+);
+
+/*Data for the table `stok_opname_tmp` */
+
+/*Table structure for table `images` */
+
+DROP TABLE IF EXISTS `images`;
+
+CREATE TABLE `images` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `image_name` VARCHAR(255) NOT NULL,
+  `image_path` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+/*Data for the table `images` */
+
+INSERT  INTO `images`(`id`,`image_name`,`image_path`,`created_at`) VALUES 
+(1,'Banner Promo Tahun Baru','files/banner_promo_tahun_baru.png','2026-01-01 08:00:00'),
+(2,'Banner Diskon Novel','files/banner_diskon_novel.png','2026-01-01 08:05:00'),
+(3,'Banner Back to School','files/banner_back_to_school.png','2026-01-05 09:00:00'),
+(4,'Banner ATK Pelajar','files/banner_atk_pelajar.png','2026-01-10 10:00:00'),
+(5,'Banner Komik & Manga','files/banner_komik_manga.png','2026-01-15 11:00:00'),
+(6,'Banner Buku Agama','files/banner_buku_agama.png','2026-01-20 12:00:00');
+
