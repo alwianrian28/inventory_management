@@ -216,11 +216,11 @@ Data user awal ada di `db/inventory_management.sql` dan `Test Login.txt`:
   - Username: `admin`
   - Password: `admin`
 - **Gudang**
-  - Username: `hiroto`
-  - Password: `hiroto`
+  - Username: `gudang`
+  - Password: `gudang`
 - **Staff**
-  - Username: `kidou`
-  - Password: `kidou`
+  - Username: `staff`
+  - Password: `staff`
 
 ---
 
